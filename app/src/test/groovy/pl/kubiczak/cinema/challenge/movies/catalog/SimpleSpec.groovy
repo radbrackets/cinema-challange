@@ -1,8 +1,5 @@
-package pl.kubiczak.cinema.challenge.planner
+package pl.kubiczak.cinema.challenge.movies.catalog
 
-
-import pl.kubiczak.cinema.challenge.movies.catalog.MovieCatalog
-import pl.kubiczak.cinema.challenge.movies.catalog.MovieFixture
 import spock.lang.Specification
 
 import java.time.Duration
