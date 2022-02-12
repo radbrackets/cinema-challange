@@ -1,8 +1,6 @@
-package pl.kubiczak.cinema.challenge.planner
+package pl.kubiczak.cinema.challenge.movies.catalog
 
-
-import pl.kubiczak.cinema.challenge.movies.catalog.MovieCatalog
-import pl.kubiczak.cinema.challenge.movies.catalog.MovieFixture
+import arrow.core.Either
 import spock.lang.Specification
 
 import java.time.Duration
@@ -19,12 +17,14 @@ class SimpleSpec extends Specification {
 
     def "should find movie"() {
         given:
-        movieCatalog.forId(_) >> new MovieFixture(120, GLASSES_3D)
+        movieCatalog.forId(_) >> new Either.Right(new TestMovie(120, GLASSES_3D))
 
         when:
         def actual = movieCatalog.forId(123)
 
         then:
-        actual.duration() == Duration.ofHours(2)
+        actual.map {
+            assert it.duration() == Duration.ofHours(2)
+        }
     }
 }
