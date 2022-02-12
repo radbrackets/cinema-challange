@@ -1,8 +1,11 @@
 package pl.kubiczak.cinema.challenge.jadwiga.screenings.ports
 
+import java.time.LocalDate
 import java.util.*
 
-interface ScreeningChanges {
+interface IManageScreenings {
+
+    fun forDay(day: LocalDate): List<Screening>
 
     fun create(screening: Screening)
 

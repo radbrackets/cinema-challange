@@ -16,7 +16,7 @@ class SimpleSpec extends Specification {
 
     def "should find movie"() {
         given:
-        movieCatalog.forId(_) >> new MovieFixture(120, GLASSES_3D)
+        movieCatalog.forId(_) >> new TestMovie(120, GLASSES_3D)
 
         when:
         def actual = movieCatalog.forId(123)
