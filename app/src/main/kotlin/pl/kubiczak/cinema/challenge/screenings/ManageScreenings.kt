@@ -7,8 +7,7 @@ import java.time.LocalDate
 import java.util.*
 
 class ManageScreenings(
-    // example of retrieving and string data separation
-    // for DB implementation but also i.e. Kafka
+    // separation of retrieving and storing data especially for i.e. Kafka
     private val retrieveScreenings: IRetrieveScreenings,
     private val storeScreenings: IStoreScreenings
 ) : IRetrieveScreenings, IStoreScreenings {
