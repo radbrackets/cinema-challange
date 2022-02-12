@@ -25,9 +25,7 @@ dependencies {
 
     // Use the Kotlin JDK 8 standard library.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-
-    // This dependency is used by the application.
-    implementation("com.google.guava:guava:30.1.1-jre")
+    implementation("io.arrow-kt:arrow-core:1.0.0")
 
     testImplementation("org.codehaus.groovy:groovy-all:3.0.9")
     testImplementation("org.spockframework:spock-core:2.0-groovy-3.0")
