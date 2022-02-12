@@ -11,7 +11,6 @@ class TestScreeningBuilder {
 
     private LocalDate day = LocalDate.parse('2022-01-01')
     private LocalTime startsAt = LocalTime.parse('12:00')
-    private Duration duration = Duration.ofMinutes(90)
     private Long movieId = 123L
     private String roomId = 'Room 01'
     private LocalDateTime createdAt = LocalDateTime.now()
