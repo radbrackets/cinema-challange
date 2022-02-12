@@ -9,7 +9,13 @@ interface RoomsCatalog {
     fun findById(id: String): Either<SomeError, Room>
 
     data class Room(
-        val id: String,
-        val cleaningDuration: Duration
-    )
+        val id: RoomId, val cleaningDuration: Duration
+    ) {
+        @JvmInline
+        value class RoomId(val value: String) {
+            init {
+                require(value.length > 3) {}
+            }
+        }
+    }
 }
