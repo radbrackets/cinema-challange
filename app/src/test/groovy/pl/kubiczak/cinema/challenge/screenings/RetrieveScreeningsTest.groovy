@@ -1,19 +1,18 @@
 package pl.kubiczak.cinema.challenge.screenings
 
-import pl.kubiczak.cinema.challenge.screenings.ports.IManageScreenings
 import pl.kubiczak.cinema.challenge.screenings.ports.IRetrieveScreenings
 import pl.kubiczak.cinema.challenge.screenings.ports.IStoreScreenings
 import spock.lang.Specification
 
 import java.time.LocalDate
 
-class ManageScreeningsTest extends Specification {
+class RetrieveScreeningsTest extends Specification {
 
     private IRetrieveScreenings retrieveScreeningsMock
 
     private IStoreScreenings storeScreeningsMock
 
-    private IManageScreenings tested
+    private IRetrieveScreenings tested
 
     def setup() {
         retrieveScreeningsMock = Mock()
@@ -36,20 +35,5 @@ class ManageScreeningsTest extends Specification {
 
         then:
         actual == [screeningA, screeningB]
-    }
-
-    // testing for interactions
-    def "should store added screening"() {
-        given:
-        def today = LocalDate.now()
-        def screening = new TestScreeningBuilder()
-                .withDay(today)
-                .build()
-
-        when:
-        tested.create(screening)
-
-        then:
-        1 * storeScreeningsMock.create(screening)
     }
 }

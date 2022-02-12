@@ -1,6 +1,5 @@
 package pl.kubiczak.cinema.challenge.screenings
 
-import pl.kubiczak.cinema.challenge.screenings.ports.IManageScreenings
 import pl.kubiczak.cinema.challenge.screenings.ports.IRetrieveScreenings
 import pl.kubiczak.cinema.challenge.screenings.ports.IStoreScreenings
 import pl.kubiczak.cinema.challenge.screenings.ports.Screening
@@ -8,9 +7,11 @@ import java.time.LocalDate
 import java.util.*
 
 class ManageScreenings(
+    // example of retrieving and string data separation
+    // for DB implementation but also i.e. Kafka
     private val retrieveScreenings: IRetrieveScreenings,
     private val storeScreenings: IStoreScreenings
-) : IManageScreenings {
+) : IRetrieveScreenings, IStoreScreenings {
 
     override fun forDay(day: LocalDate): List<Screening> =
         retrieveScreenings.forDay(day)
