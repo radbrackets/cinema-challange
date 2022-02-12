@@ -2,7 +2,6 @@ package pl.kubiczak.cinema.challenge.screenings
 
 import pl.kubiczak.cinema.challenge.screenings.ports.Screening
 
-import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -17,7 +16,7 @@ class TestScreeningBuilder {
 
     def withDay(LocalDate day) {
         this.day = day
-        return this
+        this
     }
 
     def build() {

@@ -1,11 +1,10 @@
 package pl.kubiczak.cinema.challenge.movies.catalog
 
 import arrow.core.Either
+import pl.kubiczak.cinema.challenge.movies.MovieCatalog
 import spock.lang.Specification
 
 import java.time.Duration
-
-import static pl.kubiczak.cinema.challenge.movies.catalog.Movie.Requirement.GLASSES_3D
 
 class SimpleSpec extends Specification {
 
@@ -17,14 +16,16 @@ class SimpleSpec extends Specification {
 
     def "should find movie"() {
         given:
-        movieCatalog.forId(_) >> new Either.Right(new TestMovie(120, GLASSES_3D))
+        def movie = new TestMovieBuilder().withDuration(120).build()
+        and:
+        movieCatalog.forId(_) >> new Either.Right(movie)
 
         when:
         def actual = movieCatalog.forId(123)
 
         then:
         actual.map {
-            assert it.duration() == Duration.ofHours(2)
+            assert it.duration == Duration.ofHours(2)
         }
     }
 }
