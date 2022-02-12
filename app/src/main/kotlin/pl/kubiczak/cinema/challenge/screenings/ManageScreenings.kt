@@ -1,9 +1,9 @@
-package pl.kubiczak.cinema.challenge.jadwiga.screenings
+package pl.kubiczak.cinema.challenge.screenings
 
-import pl.kubiczak.cinema.challenge.jadwiga.screenings.ports.IManageScreenings
-import pl.kubiczak.cinema.challenge.jadwiga.screenings.ports.IRetrieveScreenings
-import pl.kubiczak.cinema.challenge.jadwiga.screenings.ports.IStoreScreenings
-import pl.kubiczak.cinema.challenge.jadwiga.screenings.ports.Screening
+import pl.kubiczak.cinema.challenge.screenings.ports.IManageScreenings
+import pl.kubiczak.cinema.challenge.screenings.ports.IRetrieveScreenings
+import pl.kubiczak.cinema.challenge.screenings.ports.IStoreScreenings
+import pl.kubiczak.cinema.challenge.screenings.ports.Screening
 import java.time.LocalDate
 import java.util.*
 

@@ -1,4 +1,4 @@
-package pl.kubiczak.cinema.challenge.jadwiga.screenings.ports
+package pl.kubiczak.cinema.challenge.screenings.ports
 
 import java.time.LocalDate
 import java.time.LocalDateTime
