@@ -6,7 +6,7 @@ import spock.lang.Specification
 
 import java.time.Duration
 
-class SimpleSpec extends Specification {
+class MovieCatalogSpec extends Specification {
 
     private MovieCatalog movieCatalog
 

@@ -17,7 +17,8 @@ class ManageScreenings(
 ) : IRetrieveScreenings, IStoreScreenings {
 
     companion object {
-        // should rather be moved to properties or validation logic extracted to separate component
+        // should rather be moved to properties
+        // or even this validation logic extracted to separate component
         val MIN_PREMIERE_START = LocalTime.parse("17:00")
         val MAX_PREMIERE_START = LocalTime.parse("21:00")
         val MIN_START = LocalTime.parse("08:00")
