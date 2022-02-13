@@ -13,11 +13,10 @@ interface IRetrieveDashboardElements {
         val startsAt: LocalTime,
         val duration: Duration,
         val cleaningDuration: Duration,
-        val createdAt: LocalDateTime,
         val is3d: Boolean,
-        val errors: List<ElementError>
+        val errors: List<DashboardElementError>
     ) {
-        enum class ElementError {
+        enum class DashboardElementError {
             OVERLAPS_ANOTHER_MOVIE,
             OVERLAPS_ROOM_UNAVAILABLE_SLOT
         }

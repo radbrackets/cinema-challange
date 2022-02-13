@@ -7,7 +7,7 @@ import static pl.kubiczak.cinema.challenge.movies.MovieCatalog.Requirement
 
 class TestMovieBuilder {
 
-    private Long id = -1L
+    private Long id = 123L
     private Duration duration = Duration.ofMinutes(87)
     private String title = "Romeo and Juliet"
     private List<Requirement> requirements = []

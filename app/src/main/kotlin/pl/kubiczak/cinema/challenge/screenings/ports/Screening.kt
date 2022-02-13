@@ -10,6 +10,5 @@ data class Screening(
     val startsAt: LocalTime,
     val movieId: Long,
 
-    val roomId: RoomId,
-    val createdAt: LocalDateTime,
+    val roomId: RoomId
 )
