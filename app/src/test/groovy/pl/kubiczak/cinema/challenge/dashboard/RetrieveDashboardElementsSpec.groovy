@@ -3,6 +3,8 @@ package pl.kubiczak.cinema.challenge.dashboard
 import arrow.core.Either
 import pl.kubiczak.cinema.challenge.movies.MovieCatalog
 import pl.kubiczak.cinema.challenge.movies.catalog.TestMovieBuilder
+import pl.kubiczak.cinema.challenge.rooms.catalog.RoomsCatalog
+import pl.kubiczak.cinema.challenge.rooms.unavailable.ports.IRetrieveReservations
 import pl.kubiczak.cinema.challenge.screenings.TestScreeningBuilder
 import pl.kubiczak.cinema.challenge.screenings.ports.IRetrieveScreenings
 import spock.lang.Specification
@@ -12,16 +14,22 @@ import static pl.kubiczak.cinema.challenge.dashboard.ports.IRetrieveDashboardEle
 class RetrieveDashboardElementsSpec extends Specification {
 
     private IRetrieveScreenings retrieveScreeningsMock
+    private IRetrieveReservations retrieveReservationsMock
     private MovieCatalog movieCatalogMock
+    private RoomsCatalog roomsCatalogMock
 
     private RetrieveDashboardElements tested
 
     def setup() {
         retrieveScreeningsMock = Mock()
+        retrieveReservationsMock = Mock()
         movieCatalogMock = Mock()
+        roomsCatalogMock = Mock()
         tested = new RetrieveDashboardElements(
                 retrieveScreeningsMock,
-                movieCatalogMock
+                retrieveReservationsMock,
+                movieCatalogMock,
+                roomsCatalogMock
         )
     }
 

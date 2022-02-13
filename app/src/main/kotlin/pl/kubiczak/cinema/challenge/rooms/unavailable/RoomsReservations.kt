@@ -17,6 +17,4 @@ class RoomsReservations : IReserveRoom, IRetrieveReservations {
     override fun forDay(day: LocalDate): Map<RoomId, List<Reservation>> {
         TODO("Not yet implemented")
     }
-
-
 }
