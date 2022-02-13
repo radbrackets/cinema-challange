@@ -1,5 +1,6 @@
 package pl.kubiczak.cinema.challenge.screenings
 
+import pl.kubiczak.cinema.challenge.movies.MovieCatalog
 import pl.kubiczak.cinema.challenge.screenings.ports.IRetrieveScreenings
 import pl.kubiczak.cinema.challenge.screenings.ports.IStoreScreenings
 import spock.lang.Specification
@@ -12,12 +13,15 @@ class RetrieveScreeningsTest extends Specification {
 
     private IStoreScreenings storeScreeningsMock
 
+    private MovieCatalog movieCatalogMock
+
     private IRetrieveScreenings tested
 
     def setup() {
         retrieveScreeningsMock = Mock()
         storeScreeningsMock = Mock()
-        tested = new ManageScreenings(retrieveScreeningsMock, storeScreeningsMock)
+        movieCatalogMock = Mock()
+        tested = new ManageScreenings(retrieveScreeningsMock, storeScreeningsMock, movieCatalogMock)
     }
 
     // testing for state

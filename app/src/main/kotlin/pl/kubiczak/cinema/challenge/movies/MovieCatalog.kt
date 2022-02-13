@@ -9,14 +9,11 @@ interface MovieCatalog {
     fun forId(id: Long): Either<SomeError, Movie>
 
     data class Movie(
-        val id: MovieId,
+        val id: Long,
         val duration: Duration,
         val title: String,
         val requirements: List<Requirement>
-    ) {
-        @JvmInline
-        value class MovieId(val value: Long)
-    }
+    )
 
     enum class Requirement {
         // open for discussion if this both should be here

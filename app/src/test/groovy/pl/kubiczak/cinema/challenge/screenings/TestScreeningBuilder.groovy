@@ -19,6 +19,16 @@ class TestScreeningBuilder {
         this
     }
 
+    def withStartsAt(LocalTime startsAt) {
+        this.startsAt = startsAt
+        this
+    }
+
+    def withMovieId(Long movieId) {
+        this.movieId = movieId
+        this
+    }
+
     def build() {
         new Screening(
                 day,

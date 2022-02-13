@@ -12,8 +12,18 @@ class TestMovieBuilder {
     private String title = "Romeo and Juliet"
     private List<Requirement> requirements = []
 
+    def withId(Long id) {
+        this.id = id
+        this
+    }
+
     def withDuration(Long minutes) {
         this.duration = Duration.ofMinutes(minutes)
+        this
+    }
+
+    def withRequirements(List<Requirement> requirements) {
+        this.requirements = requirements
         this
     }
 

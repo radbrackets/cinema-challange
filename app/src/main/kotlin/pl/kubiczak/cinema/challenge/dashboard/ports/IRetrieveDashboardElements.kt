@@ -18,8 +18,6 @@ interface IRetrieveDashboardElements {
         val errors: List<ElementError>
     ) {
         enum class ElementError {
-            INCORRECT_START_TIME,
-            INCORRECT_START_TIME_FOR_PREMIERE_MOVIE,
             OVERLAPS_ANOTHER_MOVIE,
             OVERLAPS_ROOM_UNAVAILABLE_SLOT
         }
