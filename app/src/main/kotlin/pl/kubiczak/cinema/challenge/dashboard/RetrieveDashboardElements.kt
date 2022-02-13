@@ -6,14 +6,20 @@ import pl.kubiczak.cinema.challenge.dashboard.ports.IRetrieveDashboardElements.D
 import pl.kubiczak.cinema.challenge.movies.MovieCatalog
 import pl.kubiczak.cinema.challenge.movies.MovieCatalog.Movie
 import pl.kubiczak.cinema.challenge.movies.MovieCatalog.Requirement.GLASSES_3D
+import pl.kubiczak.cinema.challenge.rooms.catalog.RoomsCatalog
+import pl.kubiczak.cinema.challenge.rooms.unavailable.ports.IRetrieveReservations
 import pl.kubiczak.cinema.challenge.screenings.ports.IRetrieveScreenings
 import pl.kubiczak.cinema.challenge.screenings.ports.Screening
 import java.time.Duration
 import java.time.LocalDate
 
+// come of the dependencies are not used now
+// they are here to show the idea of the dashboard computing the data required for view
 class RetrieveDashboardElements(
     private val retrieveScreenings: IRetrieveScreenings,
-    private val movieCatalog: MovieCatalog
+    private val retrieveReservations: IRetrieveReservations,
+    private val movieCatalog: MovieCatalog,
+    private val roomsCatalog: RoomsCatalog
 ) : IRetrieveDashboardElements {
 
     override fun forDay(day: LocalDate): List<DashboardElement> {
