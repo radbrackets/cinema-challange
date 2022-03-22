@@ -1,0 +1,2 @@
+Because of short project deadline, application has only the simplest exception handling
+- temporary I use org.springframework.util.Assert for domain validation, and throws DomainExceptions with raw messages in other cases.

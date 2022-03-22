@@ -1,0 +1,5 @@
+cinema:
+  openingTime: "08:00"
+  closingTime: "22:00"
+server:
+  port: 8081

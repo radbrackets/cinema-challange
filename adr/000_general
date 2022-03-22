@@ -1,0 +1,4 @@
+- Its better to define view model as json-schema. I decide to use POJO because it is fast prototyping/demo project.
+-'Aceptance' tests are unusual. I know, but I like to write code like a story :) If you dont like it i'll understand, we can also discuss about that.
+- there is few test helpers that should be remove in production version: its fake implementation of external systems and rest-api to populate them
+-

@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "cinema.time.opening",
+      "type": "java.lang.String",
+      "description": "Time of opening cinema for clients"
+    },
+    {
+      "name": "cinema.time.closing",
+      "type": "java.lang.String",
+      "description": "Time of closing cinema for clients"
+    }
+  ] }
