@@ -4,20 +4,22 @@ import javax.naming.OperationNotSupportedException
 
 class Room(
     val name: String,
-    private val maintenanceTime: Int
+    val maintenanceTime: Int
 ) {
-    var movies: MutableList<Seans> = mutableListOf()
+    var seansList: MutableList<Seans> = mutableListOf()
     var availableTimeRanges: MutableList<IntRange> = initialRange
+        private set
 
     fun addSeans(seans: Seans){
         if (findAvailableStartingTimeRangesForMovie(seans.movie).any{ seans.startTime in it}){
-            movies.add(seans)
+            seansList.add(seans)
             availableTimeRanges.splitBySeans(seans)
         } else throw NoAvailableTimeRangeException()
     }
 
     fun findAvailableTimeRangesForMovie(movie: Movie): List<IntRange> =
-        availableTimeRanges.filter { (it.first + movie.durationTime + maintenanceTime) in it }
+        availableTimeRanges
+            .filter { (it.first + movie.durationTime + maintenanceTime) in it }
 
     fun findAvailableStartingTimeRangesForMovie(movie: Movie): List<IntRange> =
         findAvailableTimeRangesForMovie(movie).map {
@@ -32,7 +34,9 @@ class Room(
     private fun MutableList<IntRange>.splitBySeans(seans: Seans) =
         split(
             getRangeForSeans(seans) ?: throw NoAvailableTimeRangeException("No range found"),
-            seans.durationTime, seans.endTimeWithoutMaintanance + maintenanceTime)
+            seans.startTime,
+            seans.endTimeWithoutMaintanance + maintenanceTime
+        )
 
     private fun getRangeForSeans(seans: Seans) =
         findAvailableTimeRangesForMovie(seans.movie).find { seans.startTime in it }
