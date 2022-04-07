@@ -1,3 +1,20 @@
+# Solution Assumptions
+ * Basic time unit is minute
+   * it's not divideable
+ * Everything is counted with those
+ * Planner could be used for different cinema sites
+   * One place to manage multiple cinema schedules (Wrocław is one big city)
+
+ * Tried to consider only business logic
+   * No Storage
+   * No Controller
+   * No framework (e.g. no Spring Boot or any other)
+
+ * Used `gradle` as build tool
+   * making library management easier
+   * compile & test process as basic check for project
+
+-----
 # High Way Cinema
 
 Our client has a cinema in Wrocław, Poland. Currently all movies schedule is done by Pen and Paper on big board where there is plan for given time for all movies the cinema shows. Planner Jadwiga need to schedule seans(seans is movie schedule at given time)for best used of the space.
