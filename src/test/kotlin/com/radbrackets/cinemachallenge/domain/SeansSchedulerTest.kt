@@ -170,12 +170,17 @@ internal class SeansSchedulerTest {
 
     @Test
     fun shouldScheduleOnlyOneSeans_whenMultipleRequestsAtTheSameTime() {
+        // given
         val request = ScheduleRequest(
             "Forrest Gump", 1,
             LocalDateTime.of(LocalDate.now().plusDays(2), LocalTime.of(12, 0)), false
         )
         val results = Collections.synchronizedList(mutableListOf<ResponseCode>())
+
+        // when
         runBlocking { prepareCoroutineScope(request, results) }
+
+        // then
         val resultMap = results.groupBy { k -> k }
         assertThat(resultMap.get(ResponseCode.SCHEDULED)?.size).isEqualTo(1)
         assertThat(resultMap.get(ResponseCode.SEANS_IS_OVERLAPPING)?.size).isEqualTo(24)
