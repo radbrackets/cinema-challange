@@ -2,15 +2,11 @@ package cinema.domain.validator
 
 import cats.Monoid
 import cats.data.NonEmptyList
-import cats.data.Validated
-import cats.data.Validated.Invalid
-import cats.data.Validated.Valid
-import cats.implicits.catsSyntaxValidatedId
 
 case class Violation(reason: String)
 
 trait Validator[T] extends Monoid[Validator[T]] {
-  def apply(t: T): Validated[NonEmptyList[Violation], T]
+  def apply(t: T): Either[NonEmptyList[Violation], T]
 
   override def empty: Validator[T] = Validator.apply[T]
 
@@ -26,12 +22,12 @@ trait Validator[T] extends Monoid[Validator[T]] {
 
 case class CombinedValidator[T](val1: Validator[T], val2: Validator[T]) extends Validator[T] {
 
-  def apply(t: T): Validated[NonEmptyList[Violation], T] = {
+  def apply(t: T): Either[NonEmptyList[Violation], T] = {
     (val1(t), val2(t)) match {
-      case (Valid(_), Valid(_))       => t.valid
-      case (v @ Invalid(_), Valid(_)) => v
-      case (Valid(_), v @ Invalid(_)) => v
-      case (Invalid(v1), Invalid(v2)) => Invalid(v1 ++ v2.toList)
+      case (Right(_), Right(_))    => Right(t)
+      case (v @ Left(_), Right(_)) => v
+      case (Right(_), v @ Left(_)) => v
+      case (Left(v1), Left(v2))    => Left(v1 ++ v2.toList)
     }
   }
 
@@ -39,13 +35,13 @@ case class CombinedValidator[T](val1: Validator[T], val2: Validator[T]) extends 
 
 class DefaultValidator[T](test: T => Boolean, violation: Violation) extends Validator[T] {
 
-  override def apply(t: T): Validated[NonEmptyList[Violation], T] =
-    if (test(t)) Invalid(NonEmptyList.of(violation)) else Valid(t)
+  override def apply(t: T): Either[NonEmptyList[Violation], T] =
+    if (test(t)) Left(NonEmptyList.of(violation)) else Right(t)
 
 }
 
 class AlwaysValidValidator[T] extends Validator[T] {
-  override def apply(t: T): Validated[NonEmptyList[Violation], T] = Valid(t)
+  override def apply(t: T): Either[NonEmptyList[Violation], T] = Right(t)
 }
 
 object Validator {

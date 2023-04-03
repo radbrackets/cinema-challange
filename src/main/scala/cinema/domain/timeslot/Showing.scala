@@ -1,6 +1,5 @@
 package cinema.domain.timeslot
 
-import cats.data.Validated
 import cinema.domain.movie.Movie
 import cinema.domain.timeslot.attribute.ShowingAttribute
 import cinema.domain.timeslot.attribute.Require3DGlasses
@@ -37,7 +36,7 @@ object Showing {
       .withAttribute(Option.when(movie.is3D)(Require3DGlasses))
   }
 
-  def apply(startTime: OffsetDateTime, movie: Movie): Validated[Violations, Showing] = {
+  def apply(startTime: OffsetDateTime, movie: Movie): Either[Violations, Showing] = {
     validate(movie)(create(startTime, movie))
   }
 

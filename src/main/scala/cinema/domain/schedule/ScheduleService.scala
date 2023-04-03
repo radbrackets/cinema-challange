@@ -15,23 +15,27 @@ case class ScheduleService(
   roomRepository: RoomRepository
 ) {
 
-  def bookShowing(startTime: OffsetDateTime, movieId: Int, roomId: Int): Either[Violations, Showing] = {
+  def bookShowing(startTime: OffsetDateTime, movieId: Int, roomId: Int): Either[Violations, Room] = {
     val movie: Movie = movieRepository.get(movieId)
     val room: Room   = roomRepository.get(roomId)
 
-    Showing(startTime, movie).toEither.map { showing =>
-      val updatedRoom = room.bookShowing(showing)
-      roomRepository.save(updatedRoom)
-
-      showing
-    }
+    for {
+      showing     <- Showing(startTime, movie)
+      updatedRoom <- room.bookShowing(showing)
+    } yield roomRepository.save(updatedRoom)
   }
 
-  def markRoomAsUnavailable(startTime: OffsetDateTime, endTime: OffsetDateTime, roomId: Int): Room = {
+  def markRoomAsUnavailable(
+    startTime: OffsetDateTime,
+    endTime: OffsetDateTime,
+    roomId: Int
+  ): Either[Violations, Room] = {
     val room: Room  = roomRepository.get(roomId)
     val unavailable = Unavailable(startTime, endTime)
-    val updatedRoom = room.markRoomAsUnavailable(unavailable)
-    roomRepository.save(updatedRoom)
+
+    for {
+      updatedRoom <- room.markRoomAsUnavailable(unavailable)
+    } yield roomRepository.save(updatedRoom)
   }
 
 }

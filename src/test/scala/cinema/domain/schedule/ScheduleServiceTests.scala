@@ -22,6 +22,11 @@ import scala.concurrent.duration._
 class ScheduleServiceTests extends AnyFreeSpec with Matchers with BeforeAndAfter {
 
   before {
+    when(mockedRoom.bookShowing(any[Showing])).thenReturn(Right(updatedRoom))
+    when(mockedRoom.markRoomAsUnavailable(any[Unavailable])).thenReturn(Right(updatedRoom))
+  }
+
+  after {
     reset(mockedRoom)
   }
 
@@ -34,7 +39,7 @@ class ScheduleServiceTests extends AnyFreeSpec with Matchers with BeforeAndAfter
       service.bookShowing(14 :: 30, anyMovieId, anyRoomId)
 
       verify(mockedRoom, times(1)).bookShowing(any[Showing])
-      verify(roomRepo, times(1)).save(any[Room])
+      verify(roomRepo, times(1)).save(updatedRoom)
     }
 
     "save room with unavailable timeslot into db" in {
@@ -45,7 +50,7 @@ class ScheduleServiceTests extends AnyFreeSpec with Matchers with BeforeAndAfter
       service.markRoomAsUnavailable(14 :: 30, 16 :: 30, anyRoomId)
 
       verify(mockedRoom, times(1)).markRoomAsUnavailable(any[Unavailable])
-      verify(roomRepo, times(1)).save(any[Room])
+      verify(roomRepo, times(1)).save(updatedRoom)
     }
   }
 
@@ -58,8 +63,9 @@ class ScheduleServiceTests extends AnyFreeSpec with Matchers with BeforeAndAfter
     repository
   }
 
-  private val anyRoomId  = 1
-  private val mockedRoom = mock[Room]
+  private val anyRoomId   = 1
+  private val mockedRoom  = mock[Room]
+  private val updatedRoom = mock[Room]
 
   private def roomRepository = {
     val repository = mock[RoomRepository]
