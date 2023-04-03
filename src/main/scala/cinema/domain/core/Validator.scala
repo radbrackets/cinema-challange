@@ -7,6 +7,17 @@ abstract class Violation {
   val reason: String
 }
 
+/**
+ * Validator check if object passes specified tests.
+ *
+ * Implicit ValidatorDecorator helps defining validators.
+ *
+ * Example:
+ *
+ * val validator = Validator[Int]
+ *  .validate(_ < 0)(mustBePositiveViolation)
+ *  .validateIf(_ % 2 == 0)(_ > 100)(otherViolation)
+ */
 trait Validator[T] extends Monoid[Validator[T]] {
   def apply(t: T): Either[NonEmptyList[Violation], T]
 

@@ -4,6 +4,9 @@ import io.jvm.uuid.UUID
 
 import java.time.OffsetDateTime
 
+/**
+ * Command for domain usage
+ */
 sealed trait Command
 
 case class BookShowingCommand(
