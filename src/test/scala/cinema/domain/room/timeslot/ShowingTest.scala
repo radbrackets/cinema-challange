@@ -1,15 +1,15 @@
-package cinema.domain.timeslot
+package cinema.domain.room.timeslot
 
 import cinema.domain._
 import cinema.domain.movie.Movie
-import cinema.domain.timeslot.attribute.Require3DGlasses
+import cinema.domain.room.timeslot.attribute.Require3DGlasses
 import org.scalatest.EitherValues
-import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
 import scala.concurrent.duration._
 
-class ShowingTests extends AnyWordSpec with Matchers with EitherValues {
+class ShowingTest extends AnyWordSpec with Matchers with EitherValues {
 
   "A Showing" should {
     "correctly include 3D glasses to movies" in {

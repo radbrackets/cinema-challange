@@ -1,6 +1,6 @@
-package cinema.infrastructure.repository
+package cinema.domain.movie
 
-import cinema.domain.movie.Movie
+import cinema.domain.core.Repository
 
 trait MovieRepository extends Repository[Movie] {
   override def get(id: Int): Movie

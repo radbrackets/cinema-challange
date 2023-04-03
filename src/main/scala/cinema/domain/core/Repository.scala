@@ -1,4 +1,4 @@
-package cinema.infrastructure.repository
+package cinema.domain.core
 
 trait Repository[T] {
   def get(id: Int): T

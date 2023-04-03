@@ -1,11 +1,11 @@
 package cinema.domain.room
 
 import cinema.domain.Minute
-import cinema.domain.timeslot.Unavailable
+import cinema.domain.room.timeslot.Unavailable
 
 import scala.concurrent.duration.DurationInt
 
-class MarkAsUnavailableTests extends RoomTestSupport {
+class MarkAsUnavailableTest extends RoomTestSupport {
 
   "Room" should {
     "mark room as unavailable" when {

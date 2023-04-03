@@ -1,12 +1,12 @@
 package cinema.domain.room
 
 import cinema.domain.Minute
-import cinema.domain.timeslot.Cleaning
-import cinema.domain.timeslot.Showing
+import cinema.domain.room.timeslot.Cleaning
+import cinema.domain.room.timeslot.Showing
 
 import scala.concurrent.duration.DurationInt
 
-class BookShowingTests extends RoomTestSupport {
+class BookShowingTest extends RoomTestSupport {
 
   "Room" should {
     "book showing correctly" when {

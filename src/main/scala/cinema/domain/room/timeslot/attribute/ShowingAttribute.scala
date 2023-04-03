@@ -1,4 +1,4 @@
-package cinema.domain.timeslot.attribute
+package cinema.domain.room.timeslot.attribute
 
 sealed trait ShowingAttribute
 

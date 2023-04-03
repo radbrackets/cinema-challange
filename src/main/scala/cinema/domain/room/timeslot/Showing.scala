@@ -1,11 +1,9 @@
-package cinema.domain.timeslot
+package cinema.domain.room.timeslot
 
+import cinema.domain.core.Validator.Violations
+import cinema.domain.core.{Validator, Violation}
 import cinema.domain.movie.Movie
-import cinema.domain.timeslot.attribute.ShowingAttribute
-import cinema.domain.timeslot.attribute.Require3DGlasses
-import cinema.domain.validator.Validator.Violations
-import cinema.domain.validator.Validator
-import cinema.domain.validator.Violation
+import cinema.domain.room.timeslot.attribute.{Require3DGlasses, ShowingAttribute}
 
 import java.time.OffsetDateTime
 import scala.concurrent.duration.Duration

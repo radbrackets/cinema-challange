@@ -1,8 +1,8 @@
 package cinema.api.command
 
+import cinema.domain.movie.MovieRepository
 import cinema.domain.room.Room
-import cinema.infrastructure.repository.MovieRepository
-import cinema.infrastructure.repository.RoomRepository
+import cinema.domain.room.RoomRepository
 
 case class MarkRoomAsUnavailableHandler(
   movieRepository: MovieRepository,

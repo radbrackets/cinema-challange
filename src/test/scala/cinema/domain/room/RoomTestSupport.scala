@@ -1,13 +1,13 @@
 package cinema.domain.room
 
-import cinema.domain.timeslot.Cleaning
-import cinema.domain.timeslot.Showing
-import cinema.domain.timeslot.Timeslot
+import cinema.domain._
+import cinema.domain.movie.Movie
+import cinema.domain.room.timeslot.Cleaning
+import cinema.domain.room.timeslot.Showing
+import cinema.domain.room.timeslot.Timeslot
 import org.scalatest.EitherValues
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import cinema.domain._
-import cinema.domain.movie.Movie
 
 import scala.concurrent.duration.DurationInt
 import scala.concurrent.duration.FiniteDuration

@@ -1,4 +1,4 @@
-package cinema.domain.validator
+package cinema.domain.core
 
 import cats.Monoid
 import cats.data.NonEmptyList

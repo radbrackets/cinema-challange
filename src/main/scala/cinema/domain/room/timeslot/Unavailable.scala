@@ -1,4 +1,4 @@
-package cinema.domain.timeslot
+package cinema.domain.room.timeslot
 
 import java.time.OffsetDateTime
 import scala.concurrent.duration.Duration

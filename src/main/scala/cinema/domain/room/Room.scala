@@ -1,13 +1,9 @@
 package cinema.domain.room
 
+import cinema.domain.core.Validator.Violations
+import cinema.domain.core.{Validator, Violation}
 import cinema.domain.movie.Movie
-import cinema.domain.timeslot.Cleaning
-import cinema.domain.timeslot.Showing
-import cinema.domain.timeslot.Timeslot
-import cinema.domain.timeslot.Unavailable
-import cinema.domain.validator.Validator.Violations
-import cinema.domain.validator.Validator
-import cinema.domain.validator.Violation
+import cinema.domain.room.timeslot.{Cleaning, Showing, Timeslot, Unavailable}
 
 import java.time.OffsetDateTime
 import scala.concurrent.duration.Duration
