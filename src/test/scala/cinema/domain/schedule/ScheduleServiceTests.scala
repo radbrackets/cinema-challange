@@ -10,7 +10,7 @@ import org.mockito.Mockito.reset
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.when
-import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.mockito.MockitoSugar.mock
 import cinema.domain._
@@ -19,7 +19,7 @@ import org.scalatest.BeforeAndAfter
 
 import scala.concurrent.duration._
 
-class ScheduleServiceTests extends AnyFreeSpec with Matchers with BeforeAndAfter {
+class ScheduleServiceTests extends AnyWordSpec with Matchers with BeforeAndAfter {
 
   before {
     when(mockedRoom.bookShowing(any[Showing])).thenReturn(Right(updatedRoom))
@@ -30,7 +30,7 @@ class ScheduleServiceTests extends AnyFreeSpec with Matchers with BeforeAndAfter
     reset(mockedRoom)
   }
 
-  "Schedule service should" - {
+  "Schedule service" should {
     "save room with updated booking timeslots into db" in {
       val movieRepo = movieRepository
       val roomRepo  = roomRepository
