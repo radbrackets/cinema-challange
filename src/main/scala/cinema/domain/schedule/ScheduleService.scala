@@ -3,6 +3,7 @@ package cinema.domain.schedule
 import cinema.domain.movie.Movie
 import cinema.domain.room.Room
 import cinema.domain.timeslot.Showing
+import cinema.domain.timeslot.Unavailable
 import cinema.infrastructure.repository.RoomRepository
 import cinema.infrastructure.repository.MovieRepository
 
@@ -22,6 +23,13 @@ case class ScheduleService(
     roomRepository.save(updatedRoom)
 
     showing
+  }
+
+  def markRoomAsUnavailable(startTime: OffsetDateTime, endTime: OffsetDateTime, roomId: Int): Room = {
+    val room: Room  = roomRepository.get(roomId)
+    val unavailable = Unavailable(startTime, endTime)
+    val updatedRoom = room.markRoomAsUnavailable(unavailable)
+    roomRepository.save(updatedRoom)
   }
 
 }

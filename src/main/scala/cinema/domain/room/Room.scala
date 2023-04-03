@@ -3,6 +3,7 @@ package cinema.domain.room
 import cinema.domain.timeslot.Cleaning
 import cinema.domain.timeslot.Showing
 import cinema.domain.timeslot.Timeslot
+import cinema.domain.timeslot.Unavailable
 
 import scala.concurrent.duration.Duration
 
@@ -24,6 +25,13 @@ case class Room(
       throw new RuntimeException("Cleaning overlaps with already booked timeslots")
 
     copy(bookedTimeslots = showing :: cleaning :: bookedTimeslots)
+  }
+
+  def markRoomAsUnavailable(unavailable: Unavailable): Room = {
+    if (isTimeslotBooked(unavailable))
+      throw new RuntimeException("Unavailable overlaps with already booked timeslots")
+
+    copy(bookedTimeslots = unavailable :: bookedTimeslots)
   }
 
   private def isTimeslotBooked(timeslot: Timeslot): Boolean = {
