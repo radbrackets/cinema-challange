@@ -6,5 +6,6 @@ case class Movie(
   id: Int,
   name: String,
   duration: Duration,
-  is3D: Boolean = false
+  is3D: Boolean = false,
+  isPremier: Boolean = false
 )

@@ -21,6 +21,7 @@ trait Validator[T] extends Monoid[Validator[T]] {
     }
   }
 
+  def ++(validator: Validator[T]): Validator[T] = combine(this, validator)
 }
 
 case class CombinedValidator[T](val1: Validator[T], val2: Validator[T]) extends Validator[T] {
@@ -57,6 +58,10 @@ object Validator {
     def validate(test: T => Boolean)(violation: Violation): Validator[T] = {
       val validator = new DefaultValidator[T](test, violation)
       Validator[T].combine(wrapped, validator)
+    }
+
+    def validateIf(condition: Boolean)(test: T => Boolean)(violation: Violation): Validator[T] = {
+      if (condition) validate(test)(violation) else wrapped
     }
 
   }
