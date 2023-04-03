@@ -1,5 +1,7 @@
 package cinema.api.command
 
+import io.jvm.uuid.UUID
+
 import cinema.domain.movie.Movie
 import cinema.domain.movie.MovieRepository
 import cinema.domain.room.Room
@@ -12,8 +14,8 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.mockito.MockitoSugar.mock
 
 trait HandlerTestSupport extends AnyWordSpec with Matchers with BeforeAndAfter {
-  val anyMovieId      = 0
-  val anyMovie: Movie = Movie(anyMovieId, "Shrek", 2.hours)
+  val anyMovieId: UUID = UUID.random
+  val anyMovie: Movie  = Movie(anyMovieId, "Shrek", 2.hours)
 
   def movieRepository: MovieRepository = {
     val repository = mock[MovieRepository]
@@ -21,7 +23,7 @@ trait HandlerTestSupport extends AnyWordSpec with Matchers with BeforeAndAfter {
     repository
   }
 
-  val anyRoomId         = 1
+  val anyRoomId: UUID   = UUID.random
   val mockedRoom: Room  = mock[Room]
   val updatedRoom: Room = mock[Room]
 

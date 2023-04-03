@@ -1,5 +1,6 @@
 package cinema.domain.room
 
+import cinema.domain.core.Validator.Violations
 import cinema.domain.core.Validator
 import cinema.domain.core.Violation
 import cinema.domain.movie.Movie
@@ -7,14 +8,14 @@ import cinema.domain.room.timeslot.Cleaning
 import cinema.domain.room.timeslot.Showing
 import cinema.domain.room.timeslot.Timeslot
 import cinema.domain.room.timeslot.Unavailable
-import cinema.domain.core.Validator.Violations
+import io.jvm.uuid.UUID
 
 import java.time.OffsetDateTime
 import scala.concurrent.duration.Duration
 
 //TODO Maybe should be named screen?
 case class Room(
-  id: Int,
+  id: UUID,
   cleaningDuration: Duration,
   bookedTimeslots: List[Timeslot]
 ) {

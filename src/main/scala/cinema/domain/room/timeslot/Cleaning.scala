@@ -1,10 +1,12 @@
 package cinema.domain.room.timeslot
 
+import io.jvm.uuid.UUID
+
 import java.time.OffsetDateTime
 import scala.concurrent.duration.Duration
 
 case class Cleaning(
-  id: Int,
+  id: UUID,
   startTime: OffsetDateTime,
   duration: Duration
 ) extends Timeslot
@@ -12,7 +14,7 @@ case class Cleaning(
 object Cleaning {
 
   def apply(startTime: OffsetDateTime, duration: Duration): Cleaning = {
-    new Cleaning(0, startTime, duration)
+    new Cleaning(UUID.random, startTime, duration)
   }
 
 }

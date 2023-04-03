@@ -1,14 +1,13 @@
 package cinema.domain.room.timeslot
 
-import org.scalatest.wordspec.AnyWordSpec
+import cinema.domain._
 import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
 import java.time.OffsetDateTime
 import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.Duration
 import scala.concurrent.duration.FiniteDuration
-import cinema.domain._
-import cinema.domain.room.timeslot.Timeslot
 
 class TimeslotTest extends AnyWordSpec with Matchers {
 

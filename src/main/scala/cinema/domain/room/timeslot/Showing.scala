@@ -1,19 +1,18 @@
 package cinema.domain.room.timeslot
 
-import cats.data.Validated
 import cinema.domain.core.Validator
-import cinema.domain.core.Violation
+import cinema.domain.core.Validator.Violations
 import cinema.domain.movie.Movie
 import cinema.domain.room.timeslot.attribute.Require3DGlasses
 import cinema.domain.room.timeslot.attribute.ShowingAttribute
-import cinema.domain.core.Validator.Violations
+import io.jvm.uuid.UUID
 
 import java.time.OffsetDateTime
 import scala.concurrent.duration.Duration
 
 case class Showing(
-  id: Int,
-  movieId: Int,
+  id: UUID,
+  movieId: UUID,
   startTime: OffsetDateTime,
   duration: Duration,
   attributes: List[ShowingAttribute] = Nil
@@ -33,7 +32,7 @@ object Showing {
     .validateIf(movie.isPremier)(_.endTime.getHour > 21)(PremierShowingEndTimeViolation)
 
   private def create(startTime: OffsetDateTime, movie: Movie): Showing = {
-    Showing(0, movie.id, startTime, movie.duration)
+    Showing(UUID.random, movie.id, startTime, movie.duration)
       .withAttribute(Option.when(movie.is3D)(Require3DGlasses))
   }
 
