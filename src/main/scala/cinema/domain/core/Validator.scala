@@ -3,7 +3,9 @@ package cinema.domain.core
 import cats.Monoid
 import cats.data.NonEmptyList
 
-case class Violation(reason: String)
+abstract class Violation {
+  val reason: String
+}
 
 trait Validator[T] extends Monoid[Validator[T]] {
   def apply(t: T): Either[NonEmptyList[Violation], T]
@@ -18,6 +20,10 @@ trait Validator[T] extends Monoid[Validator[T]] {
   }
 
   def ++(validator: Validator[T]): Validator[T] = combine(this, validator)
+}
+
+class AlwaysValidValidator[T] extends Validator[T] {
+  override def apply(t: T): Either[NonEmptyList[Violation], T] = Right(t)
 }
 
 case class CombinedValidator[T](val1: Validator[T], val2: Validator[T]) extends Validator[T] {
@@ -38,10 +44,6 @@ class DefaultValidator[T](test: T => Boolean, violation: Violation) extends Vali
   override def apply(t: T): Either[NonEmptyList[Violation], T] =
     if (test(t)) Left(NonEmptyList.of(violation)) else Right(t)
 
-}
-
-class AlwaysValidValidator[T] extends Validator[T] {
-  override def apply(t: T): Either[NonEmptyList[Violation], T] = Right(t)
 }
 
 object Validator {

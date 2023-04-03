@@ -1,9 +1,11 @@
 package cinema.domain.room.timeslot
 
 import cinema.domain.core.Validator.Violations
-import cinema.domain.core.{Validator, Violation}
+import cinema.domain.core.Validator
+import cinema.domain.core.Violation
 import cinema.domain.movie.Movie
-import cinema.domain.room.timeslot.attribute.{Require3DGlasses, ShowingAttribute}
+import cinema.domain.room.timeslot.attribute.Require3DGlasses
+import cinema.domain.room.timeslot.attribute.ShowingAttribute
 
 import java.time.OffsetDateTime
 import scala.concurrent.duration.Duration
@@ -24,10 +26,10 @@ case class Showing(
 object Showing {
 
   private def validate(movie: Movie) = Validator[Showing]
-    .validate(_.startTime.getHour < 8)(Violation("Showing should start after 8am"))
-    .validate(_.endTime.getHour > 22)(Violation("Showing should end before 10pm"))
-    .validateIf(movie.isPremier)(_.startTime.getHour < 17)(Violation("Premier movies should start after 5pm"))
-    .validateIf(movie.isPremier)(_.endTime.getHour > 21)(Violation("Premier movies should end before 9pm"))
+    .validate(_.startTime.getHour < 8)(ShowingStartTimeViolation)
+    .validate(_.endTime.getHour > 22)(ShowingEndTimeViolation)
+    .validateIf(movie.isPremier)(_.startTime.getHour < 17)(PremierShowingStartTimeViolation)
+    .validateIf(movie.isPremier)(_.endTime.getHour > 21)(PremierShowingEndTimeViolation)
 
   private def create(startTime: OffsetDateTime, movie: Movie): Showing = {
     Showing(0, movie.id, startTime, movie.duration)
