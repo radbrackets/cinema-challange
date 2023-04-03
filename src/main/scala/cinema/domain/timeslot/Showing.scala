@@ -1,11 +1,15 @@
 package cinema.domain.timeslot
 
+import cats.data.Validated
 import cinema.domain.movie.Movie
+import cinema.domain.timeslot.attribute.Attribute
+import cinema.domain.timeslot.attribute.Require3DGlasses
+import cinema.domain.validator.Validator.Violations
+import cinema.domain.validator.Validator
+import cinema.domain.validator.Violation
 
 import java.time.OffsetDateTime
 import scala.concurrent.duration.Duration
-import cinema.domain.timeslot.attribute.Attribute
-import cinema.domain.timeslot.attribute.Require3DGlasses
 
 case class Showing(
   id: Int,
@@ -22,9 +26,17 @@ case class Showing(
 
 object Showing {
 
-  def apply(startTime: OffsetDateTime, movie: Movie): Showing = {
-    new Showing(0, movie.id, startTime, movie.duration)
+  private def validate = Validator[Showing]
+    .validate(_.startTime.getHour < 8)(Violation("Showing should start after 8am"))
+    .validate(_.endTime.getHour > 22)(Violation("Showing should end before 10pm"))
+
+  private def create(startTime: OffsetDateTime, movie: Movie): Showing = {
+    Showing(0, movie.id, startTime, movie.duration)
       .withAttribute(Option.when(movie.is3D)(Require3DGlasses))
+  }
+
+  def apply(startTime: OffsetDateTime, movie: Movie): Validated[Violations, Showing] = {
+    validate(create(startTime, movie))
   }
 
 }

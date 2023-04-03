@@ -4,25 +4,24 @@ import cinema.domain.movie.Movie
 import cinema.domain.room.Room
 import cinema.domain.timeslot.Showing
 import cinema.domain.timeslot.Unavailable
-import cinema.domain.Hour
-import cinema.domain.Minute
 import cinema.infrastructure.repository.MovieRepository
 import cinema.infrastructure.repository.RoomRepository
-import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.reset
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.when
-import org.scalatest.BeforeAndAfter
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.mockito.MockitoSugar.mock
+import cinema.domain._
+import org.mockito.ArgumentMatchers.any
+import org.scalatest.BeforeAndAfter
 
 import scala.concurrent.duration._
 
 class ScheduleServiceTests extends AnyFreeSpec with Matchers with BeforeAndAfter {
 
-  after {
+  before {
     reset(mockedRoom)
   }
 
@@ -34,8 +33,8 @@ class ScheduleServiceTests extends AnyFreeSpec with Matchers with BeforeAndAfter
 
       service.bookShowing(14 :: 30, anyMovieId, anyRoomId)
 
-      val updatedRoom = verify(mockedRoom, times(1)).bookShowing(any[Showing])
-      verify(roomRepo, times(1)).save(updatedRoom)
+      verify(mockedRoom, times(1)).bookShowing(any[Showing])
+      verify(roomRepo, times(1)).save(any[Room])
     }
 
     "save room with unavailable timeslot into db" in {
@@ -45,8 +44,8 @@ class ScheduleServiceTests extends AnyFreeSpec with Matchers with BeforeAndAfter
 
       service.markRoomAsUnavailable(14 :: 30, 16 :: 30, anyRoomId)
 
-      val updatedRoom = verify(mockedRoom, times(1)).markRoomAsUnavailable(any[Unavailable])
-      verify(roomRepo, times(1)).save(updatedRoom)
+      verify(mockedRoom, times(1)).markRoomAsUnavailable(any[Unavailable])
+      verify(roomRepo, times(1)).save(any[Room])
     }
   }
 

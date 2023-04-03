@@ -18,8 +18,11 @@ class ShowingTests extends AnyFreeSpec with Matchers {
       val normalShowing     = Showing(12 :: 30, normalMovie)
       val showingFor3DMovie = Showing(12 :: 30, movieIn3D)
 
-      normalShowing.attributes should not contain (Require3DGlasses)
-      showingFor3DMovie.attributes should contain(Require3DGlasses)
+      normalShowing.isValid shouldBe true
+      showingFor3DMovie.isValid shouldBe true
+
+      normalShowing.map(_.attributes should not contain (Require3DGlasses))
+      showingFor3DMovie.map(_.attributes should contain(Require3DGlasses))
     }
   }
 

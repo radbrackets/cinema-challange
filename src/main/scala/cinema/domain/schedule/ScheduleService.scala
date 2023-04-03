@@ -4,6 +4,7 @@ import cinema.domain.movie.Movie
 import cinema.domain.room.Room
 import cinema.domain.timeslot.Showing
 import cinema.domain.timeslot.Unavailable
+import cinema.domain.validator.Validator.Violations
 import cinema.infrastructure.repository.RoomRepository
 import cinema.infrastructure.repository.MovieRepository
 
@@ -14,15 +15,16 @@ case class ScheduleService(
   roomRepository: RoomRepository
 ) {
 
-  def bookShowing(startTime: OffsetDateTime, movieId: Int, roomId: Int): Showing = {
+  def bookShowing(startTime: OffsetDateTime, movieId: Int, roomId: Int): Either[Violations, Showing] = {
     val movie: Movie = movieRepository.get(movieId)
     val room: Room   = roomRepository.get(roomId)
-    val showing      = Showing(startTime, movie)
 
-    val updatedRoom = room.bookShowing(showing)
-    roomRepository.save(updatedRoom)
+    Showing(startTime, movie).toEither.map { showing =>
+      val updatedRoom = room.bookShowing(showing)
+      roomRepository.save(updatedRoom)
 
-    showing
+      showing
+    }
   }
 
   def markRoomAsUnavailable(startTime: OffsetDateTime, endTime: OffsetDateTime, roomId: Int): Room = {
