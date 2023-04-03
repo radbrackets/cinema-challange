@@ -11,7 +11,7 @@ case class Cleaning(
 
 object Cleaning {
 
-  def apply(startTime: OffsetDateTime, duration: Duration) = {
+  def apply(startTime: OffsetDateTime, duration: Duration): Cleaning = {
     new Cleaning(0, startTime, duration)
   }
 

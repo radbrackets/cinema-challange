@@ -1,6 +1,6 @@
 package cinema.domain.room
 
-import cinema.domain.Minute
+import cinema.domain._
 import cinema.domain.room.timeslot.Cleaning
 import cinema.domain.room.timeslot.Showing
 
