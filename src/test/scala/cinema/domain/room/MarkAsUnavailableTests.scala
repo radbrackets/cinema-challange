@@ -14,7 +14,7 @@ class MarkAsUnavailableTests extends RoomTestSupport {
 
         val unavailable = Unavailable(0, 14 :: 30, 2.hours)
 
-        val room = roomWithShowings.markRoomAsUnavailable(unavailable)
+        val room = roomWithShowings.markRoomAsUnavailable(14 :: 30, 16 :: 30)
 
         room.value.bookedTimeslots should have length (preBookedSlots.length + 1)
         room.value.bookedTimeslots should contain(unavailable)
@@ -25,8 +25,7 @@ class MarkAsUnavailableTests extends RoomTestSupport {
       "marking room as unavailable but timeslot is occupied" in {
         val roomWithShowings = Room(0, cleaningDuration, preBookedSlots)
 
-        val unavailable = Unavailable(0, 12 :: 30, 8.hours)
-        val room        = roomWithShowings.markRoomAsUnavailable(unavailable)
+        val room = roomWithShowings.markRoomAsUnavailable(12 :: 30, 20 :: 30)
 
         assert(room.isLeft)
       }

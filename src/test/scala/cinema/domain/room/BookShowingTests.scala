@@ -11,9 +11,9 @@ class BookShowingTests extends RoomTestSupport {
   "Room" should {
     "book showing correctly" when {
       "booked timeslots are empty" in {
-        val showing = Showing(0, 0, 15 :: 30, 1.hours)
+        val showing = Showing(0, 0, 15 :: 30, 2.hours)
 
-        val room = anyRoom.bookShowing(showing)
+        val room = anyRoom.bookShowing(15 :: 30, anyMovie)
 
         room.value.bookedTimeslots should contain(showing)
       }
@@ -21,30 +21,27 @@ class BookShowingTests extends RoomTestSupport {
       "it fits into timeslot" in {
         val roomWithShowings = Room(0, cleaningDuration, preBookedSlots)
 
-        val showing = Showing(0, 0, 14 :: 10, 1.hours)
+        val showing = Showing(0, 0, 14 :: 10, 2.hours)
 
-        val room = roomWithShowings.bookShowing(showing)
+        val room = roomWithShowings.bookShowing(14 :: 10, anyMovie)
 
         room.value.bookedTimeslots should have length (preBookedSlots.length + 2)
         room.value.bookedTimeslots should contain(showing)
-        room.value.bookedTimeslots should contain(Cleaning(15 :: 10, cleaningDuration))
+        room.value.bookedTimeslots should contain(Cleaning(16 :: 10, cleaningDuration))
       }
     }
 
     "add cleaning time after showing" in {
-      val showing = Showing(0, 0, 15 :: 30, 1.hours)
+      val room = anyRoom.bookShowing(15 :: 30, anyMovie)
 
-      val room = anyRoom.bookShowing(showing)
-
-      room.value.bookedTimeslots should contain(Cleaning(16 :: 30, cleaningDuration))
+      room.value.bookedTimeslots should contain(Cleaning(17 :: 30, cleaningDuration))
     }
 
     "fail" when {
       "booking showing but timeslot is occupied" in {
         val roomWithShowings = Room(0, cleaningDuration, preBookedSlots)
 
-        val showing = Showing(0, 0, 15 :: 10, 2.hours)
-        val room    = roomWithShowings.bookShowing(showing)
+        val room = roomWithShowings.bookShowing(15 :: 10, anyMovie)
 
         assert(room.isLeft)
       }
@@ -52,8 +49,7 @@ class BookShowingTests extends RoomTestSupport {
       "there isn't enough time for cleaning" in {
         val roomWithShowings = Room(0, cleaningDuration, preBookedSlots)
 
-        val showing = Showing(0, 0, 14 :: 10, 2.hours)
-        val room    = roomWithShowings.bookShowing(showing)
+        val room = roomWithShowings.bookShowing(14 :: 30, anyMovie)
 
         assert(room.isLeft)
       }
