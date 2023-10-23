@@ -1,0 +1,68 @@
+package cinema;
+
+import cinema.room.RoomUnavailablityPlanService;
+import cinema.show.MovieService;
+import cinema.room.Room;
+import cinema.room.RoomRepository;
+import cinema.room.RoomUnavialableException;
+import cinema.show.Movie;
+import cinema.show.Show;
+import cinema.show.ShowRepository;
+
+import java.util.random.RandomGenerator;
+
+public class Planner {
+
+    private final RoomRepository roomRepository;
+    private final ShowRepository showRepository;
+    private final MovieService movieService;
+    private final RoomUnavailablityPlanService roomUnavailablityPlanService;
+
+    public Planner(RoomRepository roomRepository, ShowRepository showRepository, MovieService movieService, RoomUnavailablityPlanService roomUnavailablityPlanService) {
+        this.roomRepository = roomRepository;
+        this.showRepository = showRepository;
+        this.movieService = movieService;
+        this.roomUnavailablityPlanService = roomUnavailablityPlanService;
+    }
+
+    public Show plannerScheduleCommandHandler(ScheduleShowCommand command) {
+
+
+
+        Room room = roomRepository.findOne(command.roomId());
+        Movie movie = movieService.getMovie(command.movieId());
+        Show show = Show.of(command,movie,room);
+
+        if(!show.startCanBeScheduled()){
+            throw new RuntimeException("Bad planed start of show");
+        }
+
+        if(!roomUnavailablityPlanService.isRoomAvailable(room.id(), show.nextStartedAt(), show.nextEndedAt())){
+            throw new RoomUnavialableException();
+        }
+
+        var delay = RandomGenerator.getDefault().nextInt(401)+100;
+        try{
+           Thread.sleep(delay);
+        } catch (InterruptedException ex ){
+            ex.printStackTrace();
+        }
+
+
+        return persistShow(command, show);
+
+
+    }
+
+    /**
+     * On spring, I can use @Transactional witch isolation level serialization and rollbackFor=SlotUnavailableException, and propagation level REQUIRED_NEW or NESTED.
+     */
+    private Show persistShow(ScheduleShowCommand command, Show show) {
+        if(showRepository.findShowRunningBetween(show.nextStartedAt(), show.nextEndedAt(), command.roomId()).size()>0){
+            throw new SlotUnavailableException();
+        }
+        return showRepository.save(show);
+    }
+
+
+}
