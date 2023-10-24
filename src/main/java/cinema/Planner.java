@@ -27,22 +27,17 @@ public class Planner {
 
     public Show plannerScheduleCommandHandler(ScheduleShowCommand command) {
 
-
-
         Room room = roomRepository.findOne(command.roomId());
         Movie movie = movieService.getMovie(command.movieId());
         Show show = Show.of(command,movie,room);
 
         if(!show.startCanBeScheduled()){
-            throw new RuntimeException("Bad planed start of show");
+            throw new BadTimeForStartShowException();
         }
-
         if(!roomUnavailablityPlanService.isRoomAvailable(room.id(), show.nextStartedAt(), show.nextEndedAt())){
             throw new RoomUnavialableException();
         }
-        provideRandomDelayBeforeCheckAndWriteShow();
-
-
+        provideRandomDelayBeforeCheckAndWriteShow(); // adds a small random delay to minimise the chances of checking and saving the show at the same time
         return persistShow(command, show);
 
 
