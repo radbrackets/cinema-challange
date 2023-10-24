@@ -1,7 +1,5 @@
 package cinema.show;
 
-import cinema.show.Movie;
-
 import java.util.HashMap;
 import java.util.Map;
 

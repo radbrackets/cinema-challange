@@ -1,15 +1,15 @@
 package cinema;
 
-import cinema.room.RoomUnavailablityPlanService;
-import cinema.show.MovieService;
 import cinema.room.Room;
 import cinema.room.RoomRepository;
+import cinema.room.RoomUnavailablityPlanService;
 import cinema.room.RoomUnavialableException;
 import cinema.show.Movie;
+import cinema.show.MovieService;
 import cinema.show.Show;
 import cinema.show.ShowRepository;
 
-import java.util.random.RandomGenerator;
+import java.util.Random;
 
 public class Planner {
 
@@ -40,18 +40,22 @@ public class Planner {
         if(!roomUnavailablityPlanService.isRoomAvailable(room.id(), show.nextStartedAt(), show.nextEndedAt())){
             throw new RoomUnavialableException();
         }
-
-        var delay = RandomGenerator.getDefault().nextInt(401)+100;
-        try{
-           Thread.sleep(delay);
-        } catch (InterruptedException ex ){
-            ex.printStackTrace();
-        }
+        provideRandomDelayBeforeCheckAndWriteShow();
 
 
         return persistShow(command, show);
 
 
+    }
+
+    private void provideRandomDelayBeforeCheckAndWriteShow() {
+        var random = new Random();
+        var delay = random.nextInt(401)+100;
+        try{
+           Thread.sleep(delay);
+        } catch (InterruptedException ex ){
+            ex.printStackTrace();
+        }
     }
 
     /**

@@ -1,10 +1,9 @@
 package cinema;
 
-import cinema.room.Room;
+import cinema.room.RoomRepository;
 import cinema.room.RoomUnavailablityPlanService;
 import cinema.room.RoomUnavialableException;
 import cinema.show.MovieService;
-import cinema.room.RoomRepository;
 import cinema.show.Show;
 import cinema.show.ShowRepository;
 import org.junit.jupiter.api.Assertions;
@@ -19,7 +18,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Collections;
-import java.util.Optional;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -124,9 +122,8 @@ class PlannerTest {
         );
 
         //when
-        planner.plannerScheduleCommandHandler(command);
         Assertions.assertThrows(SlotUnavailableException.class,()->planner.plannerScheduleCommandHandler(command));
-        System.out.println(Mockito.mockingDetails(showRepository));
+
     }
 
 }
