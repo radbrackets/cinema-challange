@@ -8,25 +8,25 @@ Our client has a cinema in Wrocław, Poland. Currently, all movies schedule is d
 
 ## Dictionary
 
-* **Show** - it a movie which embed in schedule meaning it have point of time and room picked.
+* **Show** - it a movie which embed in schedule meaning it have point of time and cinema.room picked.
 * **Planner** - Person who works in cinema and manage week schedule of shows.
-* **Movie Catalog** - A place where we have list of movies which are created, those are not necessary mean we are going show those(but most likely we do).
-* **Cleaning slot** -  Time slot after each show we need care of cleaning the room.
+* **Movie Catalog** - A place where we have list of movies which are created, those are not necessary mean we are going cinema.show those(but most likely we do).
+* **Cleaning slot** -  Time slot after each cinema.show we need care of cleaning the cinema.room.
 
 ## Domain requirements
 
-We would like to help Jadwiga to do better job with his weekly task with planning the show. Idea is to create virtual board that she will be able to add show to the board.
+We would like to help Jadwiga to do better job with his weekly task with planning the cinema.show. Idea is to create virtual board that she will be able to add cinema.show to the board.
 
 User Stories:
-- Planner Jadwiga will be able to schedule show for given movie at particular time every day week from 8:00-22:00
-- Any 2 scheduled movies can't be on same time and same room. Even the overlapping is forbidden.
-- Every show need to have maintenance slot to clean up whole Room. Every room have different cleaning slot.
+- Planner Jadwiga will be able to schedule cinema.show for given movie at particular time every day week from 8:00-22:00
+- Any 2 scheduled movies can't be on same time and same cinema.room. Even the overlapping is forbidden.
+- Every cinema.show need to have maintenance slot to clean up whole Room. Every cinema.room have different cleaning slot.
 - Some movies can have 3d glasses required.
 - Not every movie are equal e.g. Premier need to be after working hours around 17:00-21:00
-- There is possibilities that given room may not be available for particular time slot time or even days.
+- There is possibilities that given cinema.room may not be available for particular time slot time or even days.
 
 
-You task is to model the week planning of the show by Jadwiga.
+You task is to model the week planning of the cinema.show by Jadwiga.
 
 ## Assumption
 - Catalog of movies already exists(telling if it needs 3d glasses, how long the movie will take)
@@ -35,7 +35,7 @@ You task is to model the week planning of the show by Jadwiga.
 
 * Movie Catalog is not in scope of this challenge but some model will be required to fulfill given task
 * Consider concurrency modification. How to solve problem
-  when two Jadwiga's add different movies to same time and same room.
+  when two Jadwiga's add different movies to same time and same cinema.room.
 * If you have question to requirements simply just ask us.
 * If during the assignment you will work on real database and UI you will lose precious time, so we encourage you to not do so.
 
